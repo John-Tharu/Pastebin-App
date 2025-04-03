@@ -14,7 +14,7 @@ Make code in short links.
 
 ### Installing
 
-* How to download your program
+* How to download program
 * git clone https://github.com/John-Tharu/Pastebin-App.git
 
 ### Executing program
