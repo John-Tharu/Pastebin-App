@@ -15,12 +15,12 @@ Make code in short links.
 ### Installing
 
 * How to download your program
-    https://github.com/John-Tharu/Pastebin-App.git
+* git clone https://github.com/John-Tharu/Pastebin-App.git
 
 ### Executing program
 
 * How to run the program
-step 1
-    npm init -y
-step 2
-    node ./app.js
+* step 1
+    * npm init -y
+* step 2
+    * node ./app.js
