@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastebin App</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <div class="textBox">
+            <div class="head">
+                <div class="left-info">
+                    <span id="syntex" title="Syntax"><%= check[0].syntex %></span>
+                    <span>|</span>
+                    <span id="titles" title="Title"><%= check[0].title %></span>
+                </div>
+                <div class="right-info">
+                    <span id="download" title="Download">download</span>
+                    <span>|</span>
+                    <span id="print" title="Print">print</span>
+                </div>
+            </div>
+            <div class="msgbox" id="msgbox">
+                <pre id="msg"><%= check[0].paste %></pre>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var download = document.getElementById('download');
+    download.addEventListener('click', () =>{
+        let msg = document.getElementById('msg').innerText;
+        let blob = new Blob([msg], { type: 'text/plain' }); // Corrected Blob creation
+        let link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        let title = document.getElementById('titles').innerText;
+        //console.log(title);
+        link.download = title;
+        link.click();
+    })
+
+    var prints = document.getElementById('print');
+    prints.addEventListener('click', () =>{
+        let msg = document.getElementById('msgbox').innerHTML;
+        //console.log(msg);
+        let print = window.open('','');
+        print.document.write("<pre>" + msg + "</pre>");
+        print.document.close();
+        print.print();
+    })
+</script>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastebin App</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/bb7a749298.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <form action="/pastebin" method="post">
+                <div class="info">
+                    <div class="title">
+                        <span>Name/Title</span>
+                        <input type="text" name="title" id="title">
+                    </div>
+                    <div class="syntex">
+                        <span>Syntax</span>
+                        <select name="syntex" id="syntex">
+                            <option value=""></option>
+                            <option value="HTML">HTML</option>
+                            <option value="CSS">CSS</option>
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="Python">Python</option>
+                        </select>
+                    </div>
+                </div>
+                <span>New Paste</span>
+                <textarea name="paste" rows="5" id="paste"></textarea>
+                <div class="btn">
+                    <button type="submit">Create New Link</button>
+                </div>
+            </form>
+            <div class="tbl">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 60%";>Name/Title</th>
+                            <th>Posted</th>
+                            <th>Syntax</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%
+                        data.map(items => { 
+                            let time = timeAgo(items.createdAt);
+                            function timeAgo(timestamp) {
+                                const currentTime = new Date().getTime();
+                                const lastUpdateTime = new Date(timestamp).getTime();
+                    
+                                const diff = Math.floor((currentTime - lastUpdateTime) / 1000); // Difference in seconds
+                    
+                                let timeAgo = '';
+                                if (diff < 60) {
+                                    timeAgo = diff + " sec" + (diff === 1 ? '' : 's') + " ago";
+                                } else if (diff < 3600) {
+                                    const minutes = Math.floor(diff / 60);
+                                    timeAgo = minutes + " min" + (minutes === 1 ? '' : 's') + " ago";
+                                } else if (diff < 86400) {
+                                    const hours = Math.floor(diff / 3600);
+                                    timeAgo = hours + " hr" + (hours === 1 ? '' : 's') + " ago";
+                                } else {
+                                    const days = Math.floor(diff / 86400);
+                                    timeAgo = days + " day" + (days === 1 ? '' : 's') + " ago";
+                                }
+                    
+                                return timeAgo;
+                            }
+                            %>
+                            <tr>
+                                <td><a href="/data/<%= items.text %>"><i class="fa-solid fa-earth-americas"></i> <%= items.title %></a></td>
+                                <td id="time"><%= time %></td>
+                                <td><%= items.syntex %></td>
+                            </tr>
+                      <%  })
+                        %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
